@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="LoginViewModel"
             type="com.ruyue.note.login.LoginViewModel" />
@@ -47,11 +48,11 @@
             android:layout_height="@dimen/login_button_height"
             android:layout_marginTop="@dimen/login_margin_top"
             android:background="@drawable/login_button_background"
+            android:enabled="false"
             android:text="@string/login_btn"
             android:textAllCaps="false"
             android:textColor="@color/btn_text_color"
-            android:textSize="@dimen/login_text_size"
-            android:enabled="false"/>
+            android:textSize="@dimen/login_text_size" />
 
     </LinearLayout>
 </layout>

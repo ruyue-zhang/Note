@@ -11,4 +11,6 @@ public class Const {
     public static final String PASSWORD_PATTERN = "^.{6,18}$";
     public static final String SET_NAME_ERROR = "用户名必须是3 ~ 12为字母或数字";
     public static final String SET_PASSWORD_ERROR = "密码长度必须是6 ~ 18位字符";
+    public static final String ERROR_NAME = "用户不存在";
+    public static final String ERROR_PASSWORD = "密码错误";
 }

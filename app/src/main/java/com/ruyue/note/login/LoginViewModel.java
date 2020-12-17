@@ -53,7 +53,7 @@ public class LoginViewModel extends ViewModel {
         String Md5Password = MD5Util.md5Encrypt32Lower(inputPassword);
         if (!inputName.equals(serviceUser.getName())) {
             return Const.USER_NOT_EXIST;
-        } else if(!Md5Password.equals(serviceUser.getPassword())) {
+        } else if (!Md5Password.equals(serviceUser.getPassword())) {
             return Const.PASSWORD_NOT_CORRECT;
         } else {
             return Const.LOGIN_SUCCEED;
@@ -69,6 +69,7 @@ public class LoginViewModel extends ViewModel {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
             }
+
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 final String result = Objects.requireNonNull(response.body()).string();
@@ -83,11 +84,14 @@ public class LoginViewModel extends ViewModel {
     }
 
     public Boolean isInputLegal(EditText inputView, String namePattern, String errorInfo) {
-        if(inputView.getText().toString().matches(namePattern)) {
-            return true;
-        } else {
-            inputView.setError(errorInfo);
-            return false;
+        if (inputView.getText().toString().length() != 0) {
+            if (inputView.getText().toString().matches(namePattern)) {
+                return true;
+            } else {
+                inputView.setError(errorInfo);
+                return false;
+            }
         }
+        return false;
     }
 }

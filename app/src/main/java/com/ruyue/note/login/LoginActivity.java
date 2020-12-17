@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.ruyue.note.R;
 import com.ruyue.note.databinding.ActivityLoginBinding;
@@ -41,10 +42,10 @@ public class LoginActivity extends AppCompatActivity {
     public void loginBtnOnclick(View v) {
         switch (loginViewModel.login()) {
             case Const.USER_NOT_EXIST:
-                Log.d(TAG, "USER_NOT_EXIST");
+                Toast.makeText(LoginActivity.this, Const.ERROR_NAME, Toast.LENGTH_SHORT).show();
                 break;
             case Const.PASSWORD_NOT_CORRECT:
-                Log.d(TAG, "PASSWORD_NOT_CORRECT");
+                Toast.makeText(LoginActivity.this, Const.ERROR_PASSWORD, Toast.LENGTH_SHORT).show();
                 break;
             case Const.LOGIN_SUCCEED:
                 jumpToNoteListActivity();
