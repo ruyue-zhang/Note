@@ -13,4 +13,5 @@
     <dimen name="note_list_edittext_margin">10dp</dimen>
     <dimen name="search_edittext_width">35dp</dimen>
     <dimen name="search_edittext_padding">20dp</dimen>
+    <dimen name="recycler_view_padding">15dp</dimen>
 </resources>
