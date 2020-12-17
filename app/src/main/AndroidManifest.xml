@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Note">
-        <activity android:name=".notes.NoteListActivity"></activity>
+
+        <activity android:name=".notes.NoteListActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".login.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">

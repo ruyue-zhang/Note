@@ -8,5 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="btn_text_color">#444649</color>
+    <color name="sort_way">#EF981A</color>
 
 </resources>

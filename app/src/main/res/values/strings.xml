@@ -3,4 +3,7 @@
     <string name="user_name">userName</string>
     <string name="password">Password</string>
     <string name="login_btn">Login</string>
+    <string name="note">Note</string>
+    <string name="search">搜索</string>
+    <string name="sort_way">按编辑日期排序（默认）</string>
 </resources>
