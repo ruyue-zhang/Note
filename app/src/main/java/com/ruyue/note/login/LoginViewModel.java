@@ -1,8 +1,12 @@
 package com.ruyue.note.login;
 
+import android.view.View;
+import android.widget.EditText;
+
 import androidx.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
+import com.ruyue.note.R;
 import com.ruyue.note.model.User;
 import com.ruyue.note.utils.Const;
 import com.ruyue.note.utils.MD5Util;
@@ -12,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.Objects;
 
+import butterknife.OnTextChanged;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -19,6 +24,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class LoginViewModel extends ViewModel {
+
     private static final String TAG = LoginViewModel.class.getSimpleName();
 
     private String name;
@@ -74,5 +80,14 @@ public class LoginViewModel extends ViewModel {
     private void jsonStringToUser(String result) {
         Gson gson = new Gson();
         serviceUser = gson.fromJson(result, User.class);
+    }
+
+    public Boolean isInputLegal(EditText inputView, String namePattern, String errorInfo) {
+        if(inputView.getText().toString().matches(namePattern)) {
+            return true;
+        } else {
+            inputView.setError(errorInfo);
+            return false;
+        }
     }
 }

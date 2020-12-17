@@ -10,19 +10,27 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import com.ruyue.note.R;
 import com.ruyue.note.databinding.ActivityLoginBinding;
 import com.ruyue.note.notes.NoteListActivity;
 import com.ruyue.note.utils.Const;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
     private LoginViewModel loginViewModel;
     private SharedPreferences sharedPreferences;
+
+    @BindView(R.id.name)
+    EditText inputName;
+    @BindView(R.id.password)
+    EditText inputPassword;
 
     @OnClick(R.id.login_btn)
     public void loginBtnOnclick(View v) {
@@ -40,6 +48,16 @@ public class LoginActivity extends AppCompatActivity {
             default:
                 break;
         }
+    }
+
+    @OnTextChanged(R.id.name)
+    public void displayNameErrorInfo() {
+        loginViewModel.isInputLegal(inputName, Const.NAME_PATTERN, Const.SET_NAME_ERROR);
+    }
+
+    @OnTextChanged(R.id.password)
+    public void displayPasswordErrorInfo() {
+        loginViewModel.isInputLegal(inputPassword, Const.PASSWORD_PATTERN, Const.SET_PASSWORD_ERROR);
     }
 
     @Override
