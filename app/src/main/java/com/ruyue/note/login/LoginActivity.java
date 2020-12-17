@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.ruyue.note.R;
 import com.ruyue.note.databinding.ActivityLoginBinding;
+import com.ruyue.note.notes.NoteListActivity;
+import com.ruyue.note.utils.Const;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,8 +23,19 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.login_btn)
     public void loginBtnOnclick(View v) {
-        int login = loginViewModel.login();
-        Log.d(TAG, login + "");
+        switch (loginViewModel.login()) {
+            case Const.USER_NOT_EXIST:
+                Log.d(TAG, "USER_NOT_EXIST");
+                break;
+            case Const.PASSWORD_NOT_CORRECT:
+                Log.d(TAG, "PASSWORD_NOT_CORRECT");
+                break;
+            case Const.LOGIN_SUCCEED:
+                jumpToNoteListActivity();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -33,6 +47,10 @@ public class LoginActivity extends AppCompatActivity {
         binding.setLoginViewModel(loginViewModel);
         ButterKnife.bind(this);
         loginViewModel.getServiceUser();
+    }
 
+    private void jumpToNoteListActivity() {
+        Intent intent = new Intent(LoginActivity.this, NoteListActivity.class);
+        startActivity(intent);
     }
 }
