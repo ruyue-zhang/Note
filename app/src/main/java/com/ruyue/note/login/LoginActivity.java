@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.ruyue.note.R;
@@ -14,11 +15,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity {
+    private static final String TAG = LoginActivity.class.getSimpleName();
     private LoginViewModel loginViewModel;
 
     @OnClick(R.id.login_btn)
     public void loginBtnOnclick(View v) {
-        loginViewModel.login();
+        int login = loginViewModel.login();
+        Log.d(TAG, login + "");
     }
 
     @Override
@@ -29,5 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         binding.setLoginViewModel(loginViewModel);
         ButterKnife.bind(this);
+        loginViewModel.getServiceUser();
+
     }
 }
