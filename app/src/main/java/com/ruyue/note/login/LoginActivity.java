@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.ruyue.note.R;
@@ -26,11 +27,15 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
     private LoginViewModel loginViewModel;
     private SharedPreferences sharedPreferences;
+    private Boolean isNameLegal = false;
+    private Boolean isPasswordLegal = false;
 
     @BindView(R.id.name)
     EditText inputName;
     @BindView(R.id.password)
     EditText inputPassword;
+    @BindView(R.id.login_btn)
+    Button loginBtn;
 
     @OnClick(R.id.login_btn)
     public void loginBtnOnclick(View v) {
@@ -52,12 +57,14 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnTextChanged(R.id.name)
     public void displayNameErrorInfo() {
-        loginViewModel.isInputLegal(inputName, Const.NAME_PATTERN, Const.SET_NAME_ERROR);
+        isNameLegal = loginViewModel.isInputLegal(inputName, Const.NAME_PATTERN, Const.SET_NAME_ERROR);
+        loginBtn.setEnabled(isNameLegal && isPasswordLegal);
     }
 
     @OnTextChanged(R.id.password)
     public void displayPasswordErrorInfo() {
-        loginViewModel.isInputLegal(inputPassword, Const.PASSWORD_PATTERN, Const.SET_PASSWORD_ERROR);
+        isPasswordLegal = loginViewModel.isInputLegal(inputPassword, Const.PASSWORD_PATTERN, Const.SET_PASSWORD_ERROR);
+        loginBtn.setEnabled(isNameLegal && isPasswordLegal);
     }
 
     @Override
