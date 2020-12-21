@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.ruyue.note.R;
+import com.ruyue.note.detailPage.DetailPageActivity;
 import com.ruyue.note.model.Note;
 
 import java.util.ArrayList;
@@ -25,6 +28,14 @@ public class NoteListActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(NoteListActivity.this));
         recyclerView.setAdapter(new NoteListAdapter(noteList, NoteListActivity.this));
+
+        findViewById(R.id.create_note).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NoteListActivity.this, DetailPageActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
