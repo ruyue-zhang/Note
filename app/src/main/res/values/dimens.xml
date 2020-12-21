@@ -22,4 +22,9 @@
     <dimen name="note_item_view_margin_hor">15dp</dimen>
     <dimen name="note_item_view_margin_bottom">10dp</dimen>
     <dimen name="note_item_divide_line">1dp</dimen>
+    <dimen name="detail_padding_bottom">25dp</dimen>
+    <dimen name="detail_edittext_padding_hor">30dp</dimen>
+    <dimen name="detail_title_text">25sp</dimen>
+    <dimen name="detail_content_text">20sp</dimen>
+    <dimen name="detail_last_modify_time">10dp</dimen>
 </resources>

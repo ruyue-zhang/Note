@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.ruyue.note.R;
 import com.ruyue.note.detailPage.DetailPageActivity;
@@ -15,27 +16,29 @@ import com.ruyue.note.model.Note;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class NoteListActivity extends AppCompatActivity {
 
     private List<Note> noteList;
+
+    @OnClick(R.id.create_note)
+    public void onCreateClick() {
+        Intent intent = new Intent(NoteListActivity.this, DetailPageActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_list);
+        ButterKnife.bind(this);
 
         noteList = initNoteList();
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(NoteListActivity.this));
         recyclerView.setAdapter(new NoteListAdapter(noteList, NoteListActivity.this));
-
-        findViewById(R.id.create_note).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(NoteListActivity.this, DetailPageActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
 

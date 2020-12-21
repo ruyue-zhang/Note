@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="btn_text_color">#444649</color>
     <color name="sort_way">#EF981A</color>
+    <color name="detail_text">#202122</color>
 
 </resources>

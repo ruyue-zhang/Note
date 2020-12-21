@@ -6,4 +6,6 @@
     <string name="note">Note</string>
     <string name="search">搜索</string>
     <string name="sort_way">按编辑日期排序（默认）</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
 </resources>
