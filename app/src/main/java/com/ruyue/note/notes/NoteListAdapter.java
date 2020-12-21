@@ -4,12 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ruyue.note.R;
+import com.ruyue.note.databinding.NoteItemBinding;
 import com.ruyue.note.model.Note;
 
 import java.util.List;
@@ -25,13 +26,11 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
     }
 
     static class NoteListViewHolder extends RecyclerView.ViewHolder {
-        private TextView title;
-        private TextView content;
+        private NoteItemBinding noteItemBinding;
 
         public NoteListViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.title = itemView.findViewById(R.id.title);
-            this.content = itemView.findViewById(R.id.content);
+            noteItemBinding = DataBindingUtil.bind(itemView);
         }
     }
 
@@ -45,8 +44,8 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
     @Override
     public void onBindViewHolder(@NonNull NoteListViewHolder holder, int position) {
         Note note = noteList.get(position);
-        holder.title.setText(note.getTitle());
-        holder.content.setText(note.getContent());
+        holder.noteItemBinding.title.setText(note.getTitle());
+        holder.noteItemBinding.content.setText(note.getContent());
     }
 
     @Override
