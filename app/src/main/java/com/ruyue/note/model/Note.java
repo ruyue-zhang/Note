@@ -1,18 +1,19 @@
 package com.ruyue.note.model;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity()
+@Entity(tableName = "notes")
 public class Note {
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long id;
     private String title;
     private String content;
     private String createDate;
     private String modifyDate;
 
-    public Note(int id, String title, String content, String createDate, String modifyDate) {
+    public Note(long id, String title, String content, String createDate, String modifyDate) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -20,11 +21,19 @@ public class Note {
         this.modifyDate = modifyDate;
     }
 
-    public int getId() {
+    @Ignore
+    public Note(String title, String content, String createDate, String modifyDate) {
+        this.title = title;
+        this.content = content;
+        this.createDate = createDate;
+        this.modifyDate = modifyDate;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

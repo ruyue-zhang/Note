@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
+        <variable
+            name="DetailPageViewModel"
+            type="com.ruyue.note.detailPage.DetailPageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,6 +33,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/title"
             android:paddingHorizontal="@dimen/detail_edittext_padding_hor"
+            android:text="@={DetailPageViewModel.title}"
             android:textSize="@dimen/detail_title_text"
             android:textColor="@color/detail_text"
             android:background="@null"
@@ -40,6 +46,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/description"
             android:paddingHorizontal="@dimen/detail_edittext_padding_hor"
+            android:text="@={DetailPageViewModel.content}"
             android:textSize="@dimen/detail_content_text"
             android:textColor="@color/detail_text"
             android:background="@null"

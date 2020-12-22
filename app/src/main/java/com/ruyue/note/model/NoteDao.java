@@ -1,5 +1,6 @@
 package com.ruyue.note.model;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -8,10 +9,9 @@ import java.util.List;
 
 @Dao
 public interface NoteDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Note note);
+    void insertNote(Note note);
 
     @Query("SELECT * FROM notes")
-    List<Note> getNoteList();
+    LiveData<List<Note>> getNoteList();
 }
