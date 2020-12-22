@@ -8,6 +8,9 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.ruyue.note.R;
 import com.ruyue.note.databinding.ActivityDetailPageBinding;
@@ -16,10 +19,24 @@ import com.ruyue.note.login.LoginActivity;
 import com.ruyue.note.login.LoginViewModel;
 import com.ruyue.note.notes.NoteListActivity;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class DetailPageActivity extends AppCompatActivity {
+    private DetailPageViewModel detailPageViewModel;
+
+
+    @BindView(R.id.title)
+    EditText editText;
+    @BindView(R.id.finish)
+    TextView finish;
+
+    @OnTextChanged(R.id.title)
+    public void onTitleChange() {
+        finish.setEnabled(editText.getText().toString().length() > 0);
+    }
 
     @OnClick({R.id.delete, R.id.finish})
     public void onClick(View view) {
@@ -37,7 +54,6 @@ public class DetailPageActivity extends AppCompatActivity {
 
         }
     }
-    private DetailPageViewModel detailPageViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

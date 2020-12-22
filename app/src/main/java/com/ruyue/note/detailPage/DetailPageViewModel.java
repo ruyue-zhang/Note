@@ -19,25 +19,12 @@ public class DetailPageViewModel extends AndroidViewModel {
     private static final String TAG = "DetailPageViewModel";
     private String title;
     private String content;
-    private LiveData<List<Note>> noteList;
     private LocalDataSource localDataSource;
 
     public DetailPageViewModel(@NonNull Application application) {
         super(application);
         localDataSource = LocalDataSource.getInstance(this.getApplication());
     }
-
-    public LiveData<List<Note>> getNoteList() {
-        if(noteList == null){
-            noteList = new MutableLiveData<>();
-        }
-        return noteList;
-    }
-
-    public void setNoteList(LiveData<List<Note>> noteList) {
-        this.noteList = noteList;
-    }
-
 
     public String getTitle() {
         return title;
@@ -58,13 +45,9 @@ public class DetailPageViewModel extends AndroidViewModel {
     public void insertInRoom() {
         String date = DateUtil.stampToDate(System.currentTimeMillis());
         Log.d(TAG, date);
-        final Note[] note = {new Note(getTitle(), getContent(), date, null)};
-
+        Note note = new Note(getTitle(), getContent(), date, null);
         new Thread(() -> {
-            localDataSource.noteDao().insertNote(note[0]);
-            note[0] = localDataSource.noteDao().getNoteList().get(0);
+            localDataSource.noteDao().insertNote(note);
         }).start();
-
-        Log.d(TAG, note[0].toString());
     }
 }
