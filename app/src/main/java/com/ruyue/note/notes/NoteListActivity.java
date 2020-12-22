@@ -38,6 +38,8 @@ public class NoteListActivity extends AppCompatActivity {
 
     @BindView(R.id.change_sort)
     Button changeSort;
+    @BindView(R.id.note_count)
+    TextView noteCount;
 
     @OnClick(R.id.create_note)
     public void onCreateClick() {
@@ -69,6 +71,8 @@ public class NoteListActivity extends AppCompatActivity {
         while (noteList == null) {
             noteList = noteListViewModel.getNodeList();
         }
+
+        noteCount.setText(noteList.size()+"个便签");
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(NoteListActivity.this));
