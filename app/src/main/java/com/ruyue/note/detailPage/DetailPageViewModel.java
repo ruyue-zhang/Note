@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ruyue.note.model.Note;
@@ -12,12 +13,13 @@ import com.ruyue.note.repository.LocalDataSource;
 import com.ruyue.note.utils.DateUtil;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class DetailPageViewModel extends AndroidViewModel {
-    private static final String TAG = DetailPageViewModel.class.getSimpleName();
+    private static final String TAG = "DetailPageViewModel";
     private String title;
     private String content;
-    private MutableLiveData<List<Note>> noteList;
+    private LiveData<List<Note>> noteList;
     private LocalDataSource localDataSource;
 
     public DetailPageViewModel(@NonNull Application application) {
@@ -25,14 +27,14 @@ public class DetailPageViewModel extends AndroidViewModel {
         localDataSource = LocalDataSource.getInstance(this.getApplication());
     }
 
-    public MutableLiveData<List<Note>> getNoteList() {
+    public LiveData<List<Note>> getNoteList() {
         if(noteList == null){
             noteList = new MutableLiveData<>();
         }
         return noteList;
     }
 
-    public void setNoteList(MutableLiveData<List<Note>> noteList) {
+    public void setNoteList(LiveData<List<Note>> noteList) {
         this.noteList = noteList;
     }
 
@@ -56,7 +58,13 @@ public class DetailPageViewModel extends AndroidViewModel {
     public void insertInRoom() {
         String date = DateUtil.stampToDate(System.currentTimeMillis());
         Log.d(TAG, date);
-        Note note = new Note(getTitle(), getContent(), date, null);
-        localDataSource.noteDao().insertNote(note);
+        final Note[] note = {new Note(getTitle(), getContent(), date, null)};
+
+        new Thread(() -> {
+            localDataSource.noteDao().insertNote(note[0]);
+            note[0] = localDataSource.noteDao().getNoteList().get(0);
+        }).start();
+
+        Log.d(TAG, note[0].toString());
     }
 }

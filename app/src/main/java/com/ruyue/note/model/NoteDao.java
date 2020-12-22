@@ -13,5 +13,8 @@ public interface NoteDao {
     void insertNote(Note note);
 
     @Query("SELECT * FROM notes")
-    LiveData<List<Note>> getNoteList();
+    LiveData<List<Note>> getLiveNoteList();
+
+    @Query("SELECT * FROM notes")
+    List<Note> getNoteList();
 }
