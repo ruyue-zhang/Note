@@ -45,7 +45,7 @@ public class DetailPageViewModel extends AndroidViewModel {
     public void insertInRoom() {
         String date = DateUtil.stampToDate(System.currentTimeMillis());
         Log.d(TAG, date);
-        Note note = new Note(getTitle(), getContent(), date, null);
+        Note note = new Note(getTitle(), getContent(), date, date);
         new Thread(() -> {
             localDataSource.noteDao().insertNote(note);
         }).start();

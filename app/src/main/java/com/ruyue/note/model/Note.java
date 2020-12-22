@@ -1,11 +1,20 @@
 package com.ruyue.note.model;
 
+import android.annotation.SuppressLint;
+
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.ruyue.note.utils.DateUtil;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
 @Entity(tableName = "notes")
-public class Note {
+public class Note implements Comparable<Note>{
     @PrimaryKey(autoGenerate = true)
     private long id;
     private String title;
@@ -78,5 +87,21 @@ public class Note {
                 ", createDate='" + createDate + '\'' +
                 ", modifyDate='" + modifyDate + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Note note) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date1;
+        Date date2;
+        int compareTo = 0;
+        try {
+            date1 = simpleDateFormat.parse(this.getModifyDate());
+            date2 = simpleDateFormat.parse(note.getModifyDate());
+            compareTo = date1.compareTo(date2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return compareTo;
     }
 }

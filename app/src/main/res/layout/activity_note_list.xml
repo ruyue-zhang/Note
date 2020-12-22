@@ -1,69 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/note_list_padding"
-    tools:context=".notes.NoteListActivity">
 
-    <TextView
-        android:id="@+id/main_title"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="NoteListViewModel"
+            type="com.ruyue.note.notes.NoteListViewModel" />s
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/note"
-        android:textSize="@dimen/note_list_main_title"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:padding="@dimen/note_list_padding"
+        tools:context=".notes.NoteListActivity">
 
-    <EditText
-        android:id="@+id/search_box"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/search_edittext_width"
-        android:layout_marginVertical="@dimen/note_list_edittext_margin"
-        android:background="@drawable/search_edittext_background"
-        android:drawableLeft="@drawable/search"
-        android:drawablePadding="@dimen/drawable_padding"
-        android:hint="@string/search"
-        android:paddingHorizontal="@dimen/search_edittext_padding"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_title" />
+        <TextView
+            android:id="@+id/main_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/note"
+            android:textSize="@dimen/note_list_main_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/change_sort"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sort_way"
-        android:textAlignment="textEnd"
-        android:textColor="@color/sort_way"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_box" />
+        <EditText
+            android:id="@+id/search_box"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/search_edittext_width"
+            android:layout_marginVertical="@dimen/note_list_edittext_margin"
+            android:background="@drawable/search_edittext_background"
+            android:drawableLeft="@drawable/search"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="@string/search"
+            android:paddingHorizontal="@dimen/search_edittext_padding"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_title" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/recyclerview_height"
-        android:paddingHorizontal="@dimen/recycler_view_padding"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/change_sort"/>
+        <Button
+            android:id="@+id/change_sort"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_way"
+            android:textAlignment="textEnd"
+            android:textColor="@color/sort_way"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_box" />
 
-    <TextView
-        android:id="@+id/note_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="122个便签"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/recyclerview_height"
+            android:paddingHorizontal="@dimen/recycler_view_padding"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/change_sort"/>
 
-    <TextView
-        android:id="@+id/create_note"
-        android:layout_width="@dimen/create_login_width"
-        android:layout_height="@dimen/create_login_width"
-        android:background="@drawable/add_note"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        <TextView
+            android:id="@+id/note_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="122个便签"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
+        <TextView
+            android:id="@+id/create_note"
+            android:layout_width="@dimen/create_login_width"
+            android:layout_height="@dimen/create_login_width"
+            android:background="@drawable/add_note"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
