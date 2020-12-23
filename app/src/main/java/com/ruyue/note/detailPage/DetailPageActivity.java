@@ -12,11 +12,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.ruyue.note.R;
 import com.ruyue.note.databinding.ActivityDetailPageBinding;
 import com.ruyue.note.databinding.ActivityLoginBinding;
 import com.ruyue.note.login.LoginActivity;
 import com.ruyue.note.login.LoginViewModel;
+import com.ruyue.note.model.Note;
 import com.ruyue.note.notes.NoteListActivity;
 
 import butterknife.BindView;
@@ -64,5 +66,10 @@ public class DetailPageActivity extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         binding.setDetailPageViewModel(detailPageViewModel);
         ButterKnife.bind(this);
+
+        Intent intent = getIntent();
+        String noteString = intent.getStringExtra("note");
+        Note note = new Gson().fromJson(noteString, Note.class);
+        detailPageViewModel.initView(note);
     }
 }

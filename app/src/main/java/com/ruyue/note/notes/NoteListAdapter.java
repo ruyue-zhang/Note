@@ -1,6 +1,7 @@
 package com.ruyue.note.notes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.ruyue.note.R;
 import com.ruyue.note.databinding.NoteItemBinding;
+import com.ruyue.note.detailPage.DetailPageActivity;
 import com.ruyue.note.model.Note;
 
 import java.util.List;
@@ -26,10 +29,12 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
     }
 
     static class NoteListViewHolder extends RecyclerView.ViewHolder {
+        private View noteView;
         private NoteItemBinding noteItemBinding;
 
         public NoteListViewHolder(@NonNull View itemView) {
             super(itemView);
+            noteView = itemView;
             noteItemBinding = DataBindingUtil.bind(itemView);
         }
     }
@@ -38,7 +43,20 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
     @Override
     public NoteListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.note_item, parent, false);
-        return new NoteListViewHolder(view);
+        NoteListViewHolder holder = new NoteListViewHolder(view);
+        holder.noteView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                Note note = noteList.get(position);
+
+                Intent intent = new Intent(context, DetailPageActivity.class);
+                intent.putExtra("note", new Gson().toJson(note));
+                context.startActivity(intent);
+            }
+        });
+
+        return holder;
     }
 
     @Override
