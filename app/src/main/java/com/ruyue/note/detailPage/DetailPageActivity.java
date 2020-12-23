@@ -90,6 +90,5 @@ public class DetailPageActivity extends AppCompatActivity {
             delete.setEnabled(false);
             DetailPageViewModel.isUpdate = false;
         }
-
     }
 }
