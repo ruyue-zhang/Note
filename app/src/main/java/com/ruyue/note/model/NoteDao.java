@@ -26,4 +26,7 @@ public interface NoteDao {
 
     @Query("SELECT * FROM notes")
     List<Note> getNoteList();
+
+    @Query("SELECT * FROM notes WHERE title LIKE '%' || :keyword || '%' OR content LIKE '%' || :keyword || '%'")
+    List<Note> getNoteListByKeyword(String keyword);
 }

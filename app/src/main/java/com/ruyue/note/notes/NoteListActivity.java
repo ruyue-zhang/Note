@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ruyue.note.R;
@@ -29,6 +31,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class NoteListActivity extends AppCompatActivity {
 
@@ -40,6 +43,8 @@ public class NoteListActivity extends AppCompatActivity {
     Button changeSort;
     @BindView(R.id.note_count)
     TextView noteCount;
+    @BindView(R.id.search_box)
+    EditText searchBox;
 
     @OnClick(R.id.create_note)
     public void onCreateClick() {
@@ -59,6 +64,25 @@ public class NoteListActivity extends AppCompatActivity {
         Collections.reverse(noteList);
         adapter.notifyDataSetChanged();
     }
+
+//    @OnTextChanged(R.id.search_box)
+//    public void searchBoxChanged() {
+//        String keyword = searchBox.getText().toString();
+//        if(keyword.length() != 0) {
+//            new Thread(() -> {
+//                noteList.clear();
+//                noteList = noteListViewModel.getNodeListForSearch(keyword);
+//                runOnUiThread(() -> {
+//                    Log.d("NoteListActivity", noteList.get(0).toString());
+//                });
+//            }).start();
+//
+//        } else {
+//            noteList = noteListViewModel.getNodeList();
+//            adapter.notifyDataSetChanged();
+//        }
+//        adapter.notifyDataSetChanged();
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
