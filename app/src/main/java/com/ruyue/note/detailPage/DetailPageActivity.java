@@ -50,16 +50,22 @@ public class DetailPageActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.delete:
+                detailPageViewModel.deleteNoteById(note);
+                jumpToNoteListPage();
                 break;
             case R.id.finish:
                 detailPageViewModel.operateRoom(note);
-                Intent intent = new Intent(DetailPageActivity.this, NoteListActivity.class);
-                startActivity(intent);
-                finish();
+                jumpToNoteListPage();
                 break;
             default:
                 break;
         }
+    }
+
+    private void jumpToNoteListPage() {
+        Intent intent = new Intent(DetailPageActivity.this, NoteListActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -74,14 +80,14 @@ public class DetailPageActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String operation = intent.getStringExtra(Const.OPERATION);
-        if(operation.equals("modify")) {
+        if (operation.equals("modify")) {
             String noteString = intent.getStringExtra("note");
             note = new Gson().fromJson(noteString, Note.class);
             detailPageViewModel.initView(note);
             delete.setEnabled(true);
             DetailPageViewModel.isUpdate = true;
         } else {
-            delete.setEnabled(true);
+            delete.setEnabled(false);
             DetailPageViewModel.isUpdate = false;
         }
 

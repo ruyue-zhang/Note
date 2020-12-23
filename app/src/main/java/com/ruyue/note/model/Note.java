@@ -16,13 +16,13 @@ import java.util.Date;
 @Entity(tableName = "notes")
 public class Note implements Comparable<Note>{
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private int id;
     private String title;
     private String content;
     private String createDate;
     private String modifyDate;
 
-    public Note(long id, String title, String content, String createDate, String modifyDate) {
+    public Note(int id, String title, String content, String createDate, String modifyDate) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -38,11 +38,11 @@ public class Note implements Comparable<Note>{
         this.modifyDate = modifyDate;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

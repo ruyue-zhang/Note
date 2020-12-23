@@ -77,4 +77,10 @@ public class DetailPageViewModel extends AndroidViewModel {
             localDataSource.noteDao().update(note);
         }).start();
     }
+
+    public void deleteNoteById(Note note) {
+        new Thread(() -> {
+            localDataSource.noteDao().deleteNote(note);
+        }).start();
+    }
 }
