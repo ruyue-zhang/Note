@@ -80,10 +80,10 @@ public class NoteListActivity extends AppCompatActivity {
         adapter = new NoteListAdapter(noteList, NoteListActivity.this);
         recyclerView.setAdapter(adapter);
 
-//        noteListViewModel.getNodeList().observe(this, notes -> {
-//            noteList.clear();
-//            noteList.addAll(notes);
-//            adapter.notifyDataSetChanged();
-//        });
+        noteListViewModel.getLiveNodeList().observe(this, notes -> {
+            noteList.clear();
+            noteList.addAll(notes);
+            adapter.notifyDataSetChanged();
+        });
     }
 }

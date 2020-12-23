@@ -42,8 +42,6 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
                     new Thread(() -> {
                         localDataSource.noteDao().deleteNote(note);
                     }).start();
-                    noteList.remove(note);
-                    notifyDataSetChanged();
                 })
                 .setNegativeButton("Cancel", (dialogInterface, i) -> deleteConfirmDialog.cancel())
                 .create();
