@@ -44,6 +44,7 @@ public class NoteListActivity extends AppCompatActivity {
     @OnClick(R.id.create_note)
     public void onCreateClick() {
         Intent intent = new Intent(NoteListActivity.this, DetailPageActivity.class);
+        intent.putExtra(Const.OPERATION, "create");
         startActivity(intent);
     }
 

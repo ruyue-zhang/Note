@@ -15,6 +15,7 @@ import com.ruyue.note.R;
 import com.ruyue.note.databinding.NoteItemBinding;
 import com.ruyue.note.detailPage.DetailPageActivity;
 import com.ruyue.note.model.Note;
+import com.ruyue.note.utils.Const;
 
 import java.util.List;
 
@@ -51,6 +52,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
                 Note note = noteList.get(position);
 
                 Intent intent = new Intent(context, DetailPageActivity.class);
+                intent.putExtra(Const.OPERATION, "modify");
                 intent.putExtra("note", new Gson().toJson(note));
                 context.startActivity(intent);
             }

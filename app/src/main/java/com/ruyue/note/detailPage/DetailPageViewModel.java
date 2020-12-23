@@ -21,6 +21,7 @@ public class DetailPageViewModel extends AndroidViewModel {
     private static final String TAG = "DetailPageViewModel";
     private ObservableField<String> title = new ObservableField<>();
     private ObservableField<String> content = new ObservableField<>();
+    public static Boolean isUpdate = false;
 
     private LocalDataSource localDataSource;
 
@@ -50,12 +51,30 @@ public class DetailPageViewModel extends AndroidViewModel {
         this.content = content;
     }
 
+    public void operateRoom(Note note) {
+        if(isUpdate) {
+            updateInRoom(note);
+        } else {
+            insertInRoom();
+        }
+    }
+
     public void insertInRoom() {
         String date = DateUtil.stampToDate(System.currentTimeMillis());
         Log.d(TAG, date);
         Note note = new Note(title.get(), content.get(), date, date);
         new Thread(() -> {
             localDataSource.noteDao().insertNote(note);
+        }).start();
+    }
+
+    public void updateInRoom(Note note) {
+        String modifyDate = DateUtil.stampToDate(System.currentTimeMillis());
+        note.setTitle(title.get());
+        note.setContent(content.get());
+        note.setModifyDate(modifyDate);
+        new Thread(() -> {
+            localDataSource.noteDao().update(note);
         }).start();
     }
 }

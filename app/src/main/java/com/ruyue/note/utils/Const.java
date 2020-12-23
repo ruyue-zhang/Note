@@ -15,4 +15,5 @@ public class Const {
     public static final String ERROR_PASSWORD = "密码错误";
     public static final String SORT_BY_MODIFY_DATE = "按编辑日期排序（默认)";
     public static final String SORT_BY_CREATE_DATE = "按创建日期排序";
+    public static final String OPERATION = "operation";
 }

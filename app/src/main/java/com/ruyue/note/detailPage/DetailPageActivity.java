@@ -20,6 +20,9 @@ import com.ruyue.note.login.LoginActivity;
 import com.ruyue.note.login.LoginViewModel;
 import com.ruyue.note.model.Note;
 import com.ruyue.note.notes.NoteListActivity;
+import com.ruyue.note.utils.Const;
+
+import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,12 +31,15 @@ import butterknife.OnTextChanged;
 
 public class DetailPageActivity extends AppCompatActivity {
     private DetailPageViewModel detailPageViewModel;
+    private Note note;
 
 
     @BindView(R.id.title)
     EditText editText;
     @BindView(R.id.finish)
     TextView finish;
+    @BindView(R.id.delete)
+    TextView delete;
 
     @OnTextChanged(R.id.title)
     public void onTitleChange() {
@@ -46,14 +52,13 @@ public class DetailPageActivity extends AppCompatActivity {
             case R.id.delete:
                 break;
             case R.id.finish:
-                detailPageViewModel.insertInRoom();
+                detailPageViewModel.operateRoom(note);
                 Intent intent = new Intent(DetailPageActivity.this, NoteListActivity.class);
                 startActivity(intent);
                 finish();
                 break;
             default:
                 break;
-
         }
     }
 
@@ -68,8 +73,17 @@ public class DetailPageActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        String noteString = intent.getStringExtra("note");
-        Note note = new Gson().fromJson(noteString, Note.class);
-        detailPageViewModel.initView(note);
+        String operation = intent.getStringExtra(Const.OPERATION);
+        if(operation.equals("modify")) {
+            String noteString = intent.getStringExtra("note");
+            note = new Gson().fromJson(noteString, Note.class);
+            detailPageViewModel.initView(note);
+            delete.setEnabled(true);
+            DetailPageViewModel.isUpdate = true;
+        } else {
+            delete.setEnabled(true);
+            DetailPageViewModel.isUpdate = false;
+        }
+
     }
 }
