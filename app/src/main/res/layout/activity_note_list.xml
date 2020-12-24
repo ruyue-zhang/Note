@@ -89,13 +89,14 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <TextView
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:text="This is menu."
-            android:textSize="@dimen/drawer_text_size"
-            android:background="#FFF" />
+            app:menu="@menu/nav_menu"
+            app:headerLayout="@layout/nav_header" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

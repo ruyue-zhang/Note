@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/user"
+            android:icon="@drawable/user"
+            android:title="User" />
+
+        <item
+            android:id="@+id/share"
+            android:icon="@drawable/share"
+            android:title="Share" />
+
+        <item
+            android:id="@+id/like"
+            android:icon="@drawable/like"
+            android:title="Like" />
+
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/logout"
+            android:title="Log out" />
+
+        <item
+            android:id="@+id/setting"
+            android:icon="@drawable/setting"
+            android:title="Settings" />
+
+    </group>
+</menu>

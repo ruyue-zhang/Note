@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.navigation.NavigationView;
 import com.ruyue.note.R;
 import com.ruyue.note.databinding.ActivityNoteListBinding;
 import com.ruyue.note.detailPage.DetailPageActivity;
@@ -58,6 +59,8 @@ public class NoteListActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
 
     @OnClick(R.id.create_note)
     public void onCreateClick() {
@@ -118,6 +121,19 @@ public class NoteListActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.navigation);
         }
+        navigationView.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.logout:
+                    LoginActivity.sharedPreferences.edit().putBoolean(Const.IS_LOGIN, false).apply();
+                    Intent intent = new Intent(NoteListActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    NoteListActivity.this.finish();
+                    drawerLayout.closeDrawers();
+                default:
+                    break;
+            }
+            return true;
+        });
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(NoteListActivity.this));
