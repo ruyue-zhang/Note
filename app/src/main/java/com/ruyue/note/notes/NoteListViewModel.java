@@ -40,7 +40,8 @@ public class NoteListViewModel extends AndroidViewModel {
 
     public List<Note> getNodeListForSearch(String keyword) {
         new Thread(() -> {
-            notes = localDataSource.noteDao().getNoteListByKeyword(keyword);
+            notes.clear();
+            notes.addAll(localDataSource.noteDao().getNoteListByKeyword(keyword));
         }).start();
         return notes;
     }

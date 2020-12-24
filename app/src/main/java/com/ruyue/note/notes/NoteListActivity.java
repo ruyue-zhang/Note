@@ -34,6 +34,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
 public class NoteListActivity extends AppCompatActivity {
+    private static final String TAG = NoteListActivity.class.getSimpleName();
 
     private List<Note> noteList = null;
     private NoteListViewModel noteListViewModel;
@@ -65,24 +66,18 @@ public class NoteListActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-//    @OnTextChanged(R.id.search_box)
-//    public void searchBoxChanged() {
-//        String keyword = searchBox.getText().toString();
-//        if(keyword.length() != 0) {
-//            new Thread(() -> {
-//                noteList.clear();
-//                noteList = noteListViewModel.getNodeListForSearch(keyword);
-//                runOnUiThread(() -> {
-//                    Log.d("NoteListActivity", noteList.get(0).toString());
-//                });
-//            }).start();
-//
-//        } else {
-//            noteList = noteListViewModel.getNodeList();
-//            adapter.notifyDataSetChanged();
-//        }
-//        adapter.notifyDataSetChanged();
-//    }
+    @OnTextChanged(R.id.search_box)
+    public void searchBoxChanged() {
+        String keyword = searchBox.getText().toString();
+        if(keyword.length() > 0) {
+            noteList.clear();
+            noteList.addAll(noteListViewModel.getNodeListForSearch(keyword));
+        } else {
+            noteList.clear();
+            noteList.addAll(noteListViewModel.getNodeList());
+        }
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

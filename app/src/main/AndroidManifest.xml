@@ -17,6 +17,7 @@
             android:parentActivityName=".detailPage.DetailPageActivity" />
         <activity
             android:name=".notes.NoteListActivity"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".login.LoginActivity"
