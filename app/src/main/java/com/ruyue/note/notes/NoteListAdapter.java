@@ -16,7 +16,6 @@ import com.ruyue.note.R;
 import com.ruyue.note.databinding.NoteItemBinding;
 import com.ruyue.note.detailPage.DetailPageActivity;
 import com.ruyue.note.model.Note;
-import com.ruyue.note.repository.LocalDataSource;
 import com.ruyue.note.utils.Const;
 
 import java.util.List;
@@ -25,14 +24,12 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
 
     private List<Note> noteList;
     private Context context;
-    private LocalDataSource localDataSource;
     private AlertDialog deleteConfirmDialog;
     private Note note;
 
     public NoteListAdapter(List<Note> noteList, Context context) {
         this.noteList = noteList;
         this.context = context;
-        this.localDataSource = LocalDataSource.getInstance(context);
 
         deleteConfirmDialog = new AlertDialog.Builder(context)
                 .setTitle("Tips")
@@ -40,7 +37,6 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
                 .setIcon(R.mipmap.ic_launcher)
                 .setPositiveButton("Yes", (dialogInterface, i) -> {
                     new Thread(() -> {
-                        localDataSource.noteDao().deleteNote(note);
                     }).start();
                 })
                 .setNegativeButton("Cancel", (dialogInterface, i) -> deleteConfirmDialog.cancel())

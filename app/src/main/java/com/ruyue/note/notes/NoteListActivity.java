@@ -7,18 +7,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,15 +22,12 @@ import com.google.android.material.navigation.NavigationView;
 import com.ruyue.note.R;
 import com.ruyue.note.databinding.ActivityNoteListBinding;
 import com.ruyue.note.detailPage.DetailPageActivity;
-import com.ruyue.note.detailPage.DetailPageViewModel;
 import com.ruyue.note.login.LoginActivity;
 import com.ruyue.note.model.Note;
 import com.ruyue.note.utils.Const;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,6 +53,8 @@ public class NoteListActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
 
     @OnClick(R.id.create_note)
     public void onCreateClick() {
@@ -80,14 +74,6 @@ public class NoteListActivity extends AppCompatActivity {
         Collections.reverse(noteList);
         adapter.notifyDataSetChanged();
     }
-
-//    @OnClick(R.id.logout)
-//    public void logoutClick() {
-//        LoginActivity.sharedPreferences.edit().putBoolean(Const.IS_LOGIN, false).apply();
-//        Intent intent = new Intent(NoteListActivity.this, LoginActivity.class);
-//        startActivity(intent);
-//        NoteListActivity.this.finish();
-//    }
 
     @OnTextChanged(R.id.search_box)
     public void searchBoxChanged() {
@@ -124,18 +110,13 @@ public class NoteListActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.logout:
-                    LoginActivity.sharedPreferences.edit().putBoolean(Const.IS_LOGIN, false).apply();
-                    Intent intent = new Intent(NoteListActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    NoteListActivity.this.finish();
-                    drawerLayout.closeDrawers();
+                    logout();
                 default:
                     break;
             }
             return true;
         });
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(NoteListActivity.this));
         adapter = new NoteListAdapter(noteList, NoteListActivity.this);
         recyclerView.setAdapter(adapter);
@@ -146,6 +127,14 @@ public class NoteListActivity extends AppCompatActivity {
             noteList.addAll(notes);
             adapter.notifyDataSetChanged();
         });
+    }
+
+    private void logout() {
+        LoginActivity.sharedPreferences.edit().putBoolean(Const.IS_LOGIN, false).apply();
+        Intent intent = new Intent(NoteListActivity.this, LoginActivity.class);
+        startActivity(intent);
+        NoteListActivity.this.finish();
+        drawerLayout.closeDrawers();
     }
 
     @Override
