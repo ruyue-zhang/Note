@@ -20,6 +20,7 @@ import com.ruyue.note.R;
 import com.ruyue.note.databinding.ActivityNoteListBinding;
 import com.ruyue.note.detailPage.DetailPageActivity;
 import com.ruyue.note.detailPage.DetailPageViewModel;
+import com.ruyue.note.login.LoginActivity;
 import com.ruyue.note.model.Note;
 import com.ruyue.note.utils.Const;
 
@@ -64,6 +65,14 @@ public class NoteListActivity extends AppCompatActivity {
         Collections.sort(noteList);
         Collections.reverse(noteList);
         adapter.notifyDataSetChanged();
+    }
+
+    @OnClick(R.id.logout)
+    public void logoutClick() {
+        LoginActivity.sharedPreferences.edit().putBoolean(Const.IS_LOGIN, false).apply();
+        Intent intent = new Intent(NoteListActivity.this, LoginActivity.class);
+        startActivity(intent);
+        NoteListActivity.this.finish();
     }
 
     @OnTextChanged(R.id.search_box)
