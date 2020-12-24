@@ -1,7 +1,12 @@
 package com.ruyue.note.notes;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.Button;
@@ -47,6 +54,10 @@ public class NoteListActivity extends AppCompatActivity {
     TextView noteCount;
     @BindView(R.id.search_box)
     EditText searchBox;
+    @BindView(R.id.draw_layout)
+    DrawerLayout drawerLayout;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @OnClick(R.id.create_note)
     public void onCreateClick() {
@@ -67,13 +78,13 @@ public class NoteListActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    @OnClick(R.id.logout)
-    public void logoutClick() {
-        LoginActivity.sharedPreferences.edit().putBoolean(Const.IS_LOGIN, false).apply();
-        Intent intent = new Intent(NoteListActivity.this, LoginActivity.class);
-        startActivity(intent);
-        NoteListActivity.this.finish();
-    }
+//    @OnClick(R.id.logout)
+//    public void logoutClick() {
+//        LoginActivity.sharedPreferences.edit().putBoolean(Const.IS_LOGIN, false).apply();
+//        Intent intent = new Intent(NoteListActivity.this, LoginActivity.class);
+//        startActivity(intent);
+//        NoteListActivity.this.finish();
+//    }
 
     @OnTextChanged(R.id.search_box)
     public void searchBoxChanged() {
@@ -101,7 +112,12 @@ public class NoteListActivity extends AppCompatActivity {
             noteList = noteListViewModel.getNodeList();
         }
 
-        noteCount.setText(noteList.size()+"个便签");
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.navigation);
+        }
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(NoteListActivity.this));
@@ -109,9 +125,22 @@ public class NoteListActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         noteListViewModel.getLiveNodeList().observe(this, notes -> {
+            noteCount.setText(notes.size()+"个便签");
             noteList.clear();
             noteList.addAll(notes);
             adapter.notifyDataSetChanged();
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 }

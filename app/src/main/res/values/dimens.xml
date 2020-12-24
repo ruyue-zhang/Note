@@ -27,4 +27,6 @@
     <dimen name="detail_title_text">25sp</dimen>
     <dimen name="detail_content_text">20sp</dimen>
     <dimen name="detail_last_modify_time">10dp</dimen>
+    <dimen name="drawer_text_size">30sp</dimen>
+    <dimen name="margin_top_to_toolbar">20dp</dimen>
 </resources>
