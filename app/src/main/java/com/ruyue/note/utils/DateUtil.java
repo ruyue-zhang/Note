@@ -7,17 +7,17 @@ import java.util.Locale;
 
 public class DateUtil {
 
-    public static String FORMAT_YMDHM = "yyyy-MM-dd HH:mm";
+    public static String FORMAT_YMDHMS = "yyyy-MM-dd HH:mm:ss";
 
     public static long dateToStamp(String time) throws ParseException {
-        SimpleDateFormat sdr = new SimpleDateFormat(FORMAT_YMDHM, Locale.CHINA);
+        SimpleDateFormat sdr = new SimpleDateFormat(FORMAT_YMDHMS, Locale.CHINA);
         Date date = sdr.parse(time);
         return date.getTime();
     }
 
     public static String stampToDate(long lt){
         String res;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMAT_YMDHM, Locale.CHINA);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMAT_YMDHMS, Locale.CHINA);
         Date date = new Date(lt);
         res = simpleDateFormat.format(date);
         return res;

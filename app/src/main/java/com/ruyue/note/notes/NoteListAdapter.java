@@ -2,6 +2,7 @@ package com.ruyue.note.notes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
     public NoteListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.note_item, parent, false);
         NoteListViewHolder holder = new NoteListViewHolder(view);
+
         holder.noteView.setOnClickListener(v -> {
             int position = holder.getAdapterPosition();
             note = noteList.get(position);

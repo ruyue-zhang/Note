@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +26,9 @@ import com.ruyue.note.detailPage.DetailPageActivity;
 import com.ruyue.note.login.LoginActivity;
 import com.ruyue.note.model.Note;
 import com.ruyue.note.utils.Const;
+import com.ruyue.note.utils.SortByDate;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -67,11 +70,11 @@ public class NoteListActivity extends AppCompatActivity {
     public void changeSortClick() {
         if ((changeSort.getText() == Const.SORT_BY_CREATE_DATE)) {
             changeSort.setText(Const.SORT_BY_MODIFY_DATE);
+            SortByDate.sortByModifyDate(noteList);
         } else {
             changeSort.setText(Const.SORT_BY_CREATE_DATE);
+            SortByDate.sortByCreateDate(noteList);
         }
-        Collections.sort(noteList);
-        Collections.reverse(noteList);
         adapter.notifyDataSetChanged();
     }
 
@@ -100,7 +103,6 @@ public class NoteListActivity extends AppCompatActivity {
         while (noteList == null) {
             noteList = noteListViewModel.getNodeList();
         }
-
         setToolBar();
         navItemClickListener();
         setRecyclerView();
@@ -112,6 +114,11 @@ public class NoteListActivity extends AppCompatActivity {
             noteCount.setText(notes.size()+"个便签");
             noteList.clear();
             noteList.addAll(notes);
+            if ((changeSort.getText() == Const.SORT_BY_CREATE_DATE)) {
+                SortByDate.sortByCreateDate(noteList);
+            } else {
+                SortByDate.sortByModifyDate(noteList);
+            }
             adapter.notifyDataSetChanged();
         });
     }
