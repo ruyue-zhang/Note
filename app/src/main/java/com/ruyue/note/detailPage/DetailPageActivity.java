@@ -80,7 +80,7 @@ public class DetailPageActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String operation = intent.getStringExtra(Const.OPERATION);
-        if (operation.equals("modify")) {
+        if (operation.equals(Const.OPERATION_MODIFY)) {
             String noteString = intent.getStringExtra("note");
             note = new Gson().fromJson(noteString, Note.class);
             detailPageViewModel.initView(note);

@@ -59,7 +59,7 @@ public class NoteListActivity extends AppCompatActivity {
     @OnClick(R.id.create_note)
     public void onCreateClick() {
         Intent intent = new Intent(NoteListActivity.this, DetailPageActivity.class);
-        intent.putExtra(Const.OPERATION, "create");
+        intent.putExtra(Const.OPERATION, Const.OPERATION_CREATE);
         startActivity(intent);
     }
 
@@ -101,12 +101,28 @@ public class NoteListActivity extends AppCompatActivity {
             noteList = noteListViewModel.getNodeList();
         }
 
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.navigation);
-        }
+        setToolBar();
+        navItemClickListener();
+        setRecyclerView();
+        liveNoteListObserve();
+    }
+
+    private void liveNoteListObserve() {
+        noteListViewModel.getLiveNodeList().observe(this, notes -> {
+            noteCount.setText(notes.size()+"个便签");
+            noteList.clear();
+            noteList.addAll(notes);
+            adapter.notifyDataSetChanged();
+        });
+    }
+
+    private void setRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(NoteListActivity.this));
+        adapter = new NoteListAdapter(noteList, NoteListActivity.this);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void navItemClickListener() {
         navigationView.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.logout:
@@ -116,17 +132,15 @@ public class NoteListActivity extends AppCompatActivity {
             }
             return true;
         });
+    }
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(NoteListActivity.this));
-        adapter = new NoteListAdapter(noteList, NoteListActivity.this);
-        recyclerView.setAdapter(adapter);
-
-        noteListViewModel.getLiveNodeList().observe(this, notes -> {
-            noteCount.setText(notes.size()+"个便签");
-            noteList.clear();
-            noteList.addAll(notes);
-            adapter.notifyDataSetChanged();
-        });
+    private void setToolBar() {
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.navigation);
+        }
     }
 
     private void logout() {

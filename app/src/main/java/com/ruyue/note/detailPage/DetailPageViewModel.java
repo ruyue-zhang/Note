@@ -21,6 +21,16 @@ public class DetailPageViewModel extends AndroidViewModel {
     private static final String TAG = "DetailPageViewModel";
     private ObservableField<String> title = new ObservableField<>();
     private ObservableField<String> content = new ObservableField<>();
+    private ObservableField<String> modifyDate = new ObservableField<>();
+
+    public ObservableField<String> getModifyDate() {
+        return modifyDate;
+    }
+
+    public void setModifyDate(ObservableField<String> modifyDate) {
+        this.modifyDate = modifyDate;
+    }
+
     public static Boolean isUpdate = false;
 
     private LocalDataSource localDataSource;
@@ -33,6 +43,7 @@ public class DetailPageViewModel extends AndroidViewModel {
     public void initView(Note note) {
         title.set(note.getTitle());
         content.set(note.getContent());
+        modifyDate.set(note.getModifyDate());
     }
 
     public ObservableField<String> getTitle() {

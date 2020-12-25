@@ -64,7 +64,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
             note = noteList.get(position);
 
             Intent intent = new Intent(context, DetailPageActivity.class);
-            intent.putExtra(Const.OPERATION, "modify");
+            intent.putExtra(Const.OPERATION, Const.OPERATION_MODIFY);
             intent.putExtra("note", new Gson().toJson(note));
             context.startActivity(intent);
         });

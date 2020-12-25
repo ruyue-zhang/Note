@@ -58,7 +58,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     protected void getServiceUser() {
-        final Request request = new Request.Builder().url(Const.URL).build();
+        Request request = new Request.Builder().url(Const.URL).build();
         OkHttpClient okHttpClient = new OkHttpClient();
         Call call = okHttpClient.newCall(request);
 

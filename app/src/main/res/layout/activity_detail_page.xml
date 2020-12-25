@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/detail_last_modify_time"
-            android:text="2020年12月21日 16:19"
+            android:text="@={DetailPageViewModel.modifyDate}"
             android:textAlignment="center"
             android:textColor="@color/btn_text_color"
             app:layout_constraintTop_toTopOf="parent"

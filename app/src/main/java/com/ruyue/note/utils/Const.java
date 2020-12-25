@@ -16,4 +16,6 @@ public class Const {
     public static final String SORT_BY_MODIFY_DATE = "按编辑日期排序（默认)";
     public static final String SORT_BY_CREATE_DATE = "按创建日期排序";
     public static final String OPERATION = "operation";
+    public static final String OPERATION_CREATE = "create";
+    public static final String OPERATION_MODIFY = "modify";
 }
