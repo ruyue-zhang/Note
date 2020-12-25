@@ -14,7 +14,7 @@
     <dimen name="search_edittext_width">35dp</dimen>
     <dimen name="search_edittext_padding">20dp</dimen>
     <dimen name="recycler_view_padding">15dp</dimen>
-    <dimen name="recyclerview_height">450dp</dimen>
+    <dimen name="recyclerview_height">430dp</dimen>
     <dimen name="create_login_width">25dp</dimen>
     <dimen name="node_item_padding_ver">5dp</dimen>
     <dimen name="title_text_size">20sp</dimen>

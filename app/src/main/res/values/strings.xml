@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Note</string>
-    <string name="user_name">userName</string>
-    <string name="password">Password</string>
+    <string name="user_name">user name</string>
+    <string name="password">password</string>
     <string name="login_btn">Login</string>
     <string name="note">Note</string>
     <string name="search">搜索</string>
