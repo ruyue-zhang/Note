@@ -14,9 +14,10 @@
         android:theme="@style/Theme.Note">
         <activity android:name=".detailPage.DetailPageActivity"
             android:theme="@style/Theme.AppCompat.Light"
-            android:parentActivityName=".detailPage.DetailPageActivity" />
+            android:parentActivityName=".notes.NoteListActivity" />
         <activity
             android:name=".notes.NoteListActivity"
+            android:label=""
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
