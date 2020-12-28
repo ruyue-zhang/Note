@@ -81,12 +81,22 @@ public class NoteListActivity extends AppCompatActivity {
     @OnTextChanged(R.id.search_box)
     public void searchBoxChanged() {
         String keyword = searchBox.getText().toString();
+        int a = keyword.length();
+
         if(keyword.length() > 0) {
+            List<Note> list = noteListViewModel.getNodeListForSearch(keyword);
             noteList.clear();
-            noteList.addAll(noteListViewModel.getNodeListForSearch(keyword));
+            noteList.addAll(list);
+
         } else {
             noteList.clear();
             noteList.addAll(noteListViewModel.getNodeList());
+        }
+
+        if ((changeSort.getText() == Const.SORT_BY_CREATE_DATE)) {
+            SortByDate.sortByCreateDate(noteList);
+        } else {
+            SortByDate.sortByModifyDate(noteList);
         }
         adapter.notifyDataSetChanged();
     }

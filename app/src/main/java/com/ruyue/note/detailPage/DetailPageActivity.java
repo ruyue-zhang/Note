@@ -77,7 +77,10 @@ public class DetailPageActivity extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         binding.setDetailPageViewModel(detailPageViewModel);
         ButterKnife.bind(this);
+        getIntentData();
+    }
 
+    private void getIntentData() {
         Intent intent = getIntent();
         String operation = intent.getStringExtra(Const.OPERATION);
         if (operation.equals(Const.OPERATION_MODIFY)) {
