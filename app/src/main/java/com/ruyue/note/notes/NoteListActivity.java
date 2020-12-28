@@ -2,6 +2,7 @@ package com.ruyue.note.notes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -15,11 +16,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
 import com.ruyue.note.R;
 import com.ruyue.note.databinding.ActivityNoteListBinding;
 import com.ruyue.note.detailPage.DetailPageActivity;
@@ -43,6 +46,9 @@ public class NoteListActivity extends AppCompatActivity {
     private List<Note> noteList = null;
     private NoteListViewModel noteListViewModel;
     private NoteListAdapter adapter;
+    private AlertDialog deleteConfirmDialog;
+    private Note note;
+
 
     @BindView(R.id.change_sort)
     Button changeSort;
@@ -117,6 +123,21 @@ public class NoteListActivity extends AppCompatActivity {
         navItemClickListener();
         setRecyclerView();
         liveNoteListObserve();
+        initAlertDialog();
+    }
+
+    private void initAlertDialog() {
+        deleteConfirmDialog = new AlertDialog.Builder(this)
+                .setTitle("Tips")
+                .setMessage("Confirm delete this note?")
+                .setIcon(R.mipmap.ic_launcher)
+                .setPositiveButton("Yes", (dialogInterface, i) -> {
+                    new Thread(() -> {
+                        noteListViewModel.deleteNoteFromDB(note);
+                    }).start();
+                })
+                .setNegativeButton("Cancel", (dialogInterface, i) -> deleteConfirmDialog.cancel())
+                .create();
     }
 
     private void liveNoteListObserve() {
@@ -137,6 +158,18 @@ public class NoteListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(NoteListActivity.this));
         adapter = new NoteListAdapter(noteList, NoteListActivity.this);
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener((view, position) -> {
+            Note note = noteList.get(position);
+
+            Intent intent = new Intent(NoteListActivity.this, DetailPageActivity.class);
+            intent.putExtra(Const.OPERATION, Const.OPERATION_MODIFY);
+            intent.putExtra("note", new Gson().toJson(note));
+            startActivity(intent);
+        });
+        adapter.setOnLongItemClickListener((view, position) -> {
+            note = noteList.get(position);
+            deleteConfirmDialog.show();
+        });
     }
 
     private void navItemClickListener() {

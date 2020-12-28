@@ -45,4 +45,8 @@ public class NoteListViewModel extends AndroidViewModel {
         }).start();
         return notes;
     }
+
+    public void deleteNoteFromDB(Note note) {
+        new Thread(() -> localDataSource.noteDao().deleteNote(note)).start();
+    }
 }

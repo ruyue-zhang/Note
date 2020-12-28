@@ -26,27 +26,30 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
 
     private List<Note> noteList;
     private Context context;
-    private AlertDialog deleteConfirmDialog;
-    private LocalDataSource localDataSource;
-    private Note note;
+    private OnItemClickListener onItemClickListener;
+        private OnLongItemClickListener onLongItemClickListener;
 
     public NoteListAdapter(List<Note> noteList, Context context) {
         this.noteList = noteList;
         this.context = context;
-        this.localDataSource = LocalDataSource.getInstance(context);
-
-        deleteConfirmDialog = new AlertDialog.Builder(context)
-                .setTitle("Tips")
-                .setMessage("Confirm delete this note?")
-                .setIcon(R.mipmap.ic_launcher)
-                .setPositiveButton("Yes", (dialogInterface, i) -> {
-                    new Thread(() -> {
-                        localDataSource.noteDao().deleteNote(note);
-                    }).start();
-                })
-                .setNegativeButton("Cancel", (dialogInterface, i) -> deleteConfirmDialog.cancel())
-                .create();
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public interface OnLongItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnLongItemClickListener(OnLongItemClickListener onLongItemClickListener) {
+        this.onLongItemClickListener = onLongItemClickListener;
+    }
+
 
     static class NoteListViewHolder extends RecyclerView.ViewHolder {
         private View noteView;
@@ -63,26 +66,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
     @Override
     public NoteListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.note_item, parent, false);
-        NoteListViewHolder holder = new NoteListViewHolder(view);
-
-        holder.noteView.setOnClickListener(v -> {
-            int position = holder.getAdapterPosition();
-            note = noteList.get(position);
-
-            Intent intent = new Intent(context, DetailPageActivity.class);
-            intent.putExtra(Const.OPERATION, Const.OPERATION_MODIFY);
-            intent.putExtra("note", new Gson().toJson(note));
-            context.startActivity(intent);
-        });
-
-        holder.noteView.setOnLongClickListener(v -> {
-            int position = holder.getAdapterPosition();
-            note = noteList.get(position);
-            deleteConfirmDialog.show();
-            return false;
-        });
-
-        return holder;
+        return new NoteListViewHolder(view);
     }
 
     @Override
@@ -90,6 +74,17 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteLi
         Note note = noteList.get(position);
         holder.noteItemBinding.title.setText(note.getTitle());
         holder.noteItemBinding.content.setText(note.getContent());
+
+        if (onItemClickListener != null) {
+            holder.noteView.setOnClickListener(v -> onItemClickListener.onItemClick(v, position));
+        }
+
+        if(onLongItemClickListener != null) {
+            holder.noteView.setOnLongClickListener(v -> {
+                onLongItemClickListener.onItemClick(v, position);
+                return false;
+            });
+        }
     }
 
     @Override
